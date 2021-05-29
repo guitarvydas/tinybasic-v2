@@ -1,0 +1,73 @@
+TINYBASIC {
+Basic = Statement+
+Statement =   "print" Expr_list -- print
+            | "if" Expression Relop Expression "then" Statement -- ifthen
+	    | "goto" Expression -- goto
+	    | "input" Variable_list -- input
+	    | "let" Variable "=" Expression --let
+	    | "gosub" Expression -- gosub
+	    | "return" -- return
+	    | "clear" -- clear
+	    | "list"  -- list
+	    | "run"   -- run
+	    | "end" -- end
+	    
+Expr_list = ( string | Expression ) CommaExpr*
+CommaExpr = "," (string | Expression) 
+Variable_list = Variable CommaVar*
+CommaVar = "," Variable
+Expression = ("+" | "-")? Term MoreTerm*
+MoreTerm = ("+" | "-") Term
+Term = Factor MoreFactor*
+MoreFactor = ("*" | "/") Factor
+Factor =   Variable -- var
+         | Number -- number
+	 | "(" Expression ")" -- paren
+Variable = "a" .. "z" 
+Number = digit+ 
+Relop =   "<>" -- ne
+        | "<=" -- le
+	| "<"  -- lt
+	| ">=" -- ge
+	| ">"  -- gt
+	| "="  -- eq
+string = dq notDQ* dq
+dq = "\""
+notDQ = ~dq any
+}
+
+Basic [@statements] = [[${statements}]]
+Statement_print [printkeyword exprList] = [[(format *standard-output* "~a~%" (list ${exprList}))\n]]
+Statement_ifthen [ifkeyword e1 relop e2 thenkeyword statement] = [[(if (${relop} ${e1} ${e2}) \n${statement}\n)]]
+Statement_goto [gotokeyword expression] = [[${gotokeyword} ${expression}\n]]
+Statement_input [inputkeyword varList] = [[${inputkeyword} ${varList}\n]]
+Statement_let [letkeyword v eqkeyword e] = [[(defparameter ${v} ${e})\n]]
+Statement_gosub [gosubkeyword e] = [[${gosubkeyword} ${e}\n]]
+Statement_return [returnkeyword] = [[${returnkeyword}\n]]
+Statement_clear [clearkeyword] = [[${clearkeyword}\n]]
+Statement_list [listkeyword] = [[${listkeyword}\n]]
+Statement_run [runkeyword] = [[${runkeyword}\n]]
+Statement_end [endkeyword] = [[${endkeyword}\n]]
+Expr_list [stringOrExpression1 @commaExpr] = [[${stringOrExpression1} ${commaExpr}\n]]
+CommaExpr [commakeyword stringOrExpression] = [[ ${stringOrExpression}]]
+Variable_list [v @commaVar] = [[${v}${commaVar}]]
+CommaVar [commakeyword v] = [[ ${v}]]
+Expression [@plusMinusKeyword term @moreFactor] = [[${plusMinusKeyword} ${term} ${moreFactor}]]
+MoreFactor [@plusMinusKeyword term] = [[${pluMinusKeyword} ${term}]]
+Term [factor @moreFactor] = [[${factor} ${moreFactor}]] 
+MoreFactor [timesDiv factor] = [[${timesDiv} ${factor}]]
+Factor_var [v] = [[${v}]]
+Factor_number [num] = [[${num}]]
+Factor_paren [openParen e closeParen] = [[${openParen} ${e} ${closeParen}]]
+Variable [c] = [[*${c}*]]
+Number [@digit] = [[${digit}]]
+string [q1 @cs q2] = [[${q1}${cs}${q2}]]
+dq [q] = [[${q}]]
+notDQ [c] = [[${c}]]
+
+Relop_eq [op] = [[=]]
+Relop_ne [op] = [[/=]]
+Relop_le [op] = [[<=]]
+Relop_lt [op] = [[<]]
+Relop_ge [op] = [[>=]]
+Relop_gt [op] = [[>]]
