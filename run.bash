@@ -12,15 +12,25 @@ catch () {
 }
 set -e
 echo '*** building transpilers'
-../grasem/run.bash ${target}.grasem >_.js
+
+m4 ${target}.grasem >_temp.grasem
+../grasem/run.bash _temp.grasem >_.js
 cat foreign.js _.js >${target}.js
-../grasem/run.bash ${pytranspiler}.grasem >_.js
+
+m4 ${pytranspiler}.grasem >_temp.grasem
+../grasem/run.bash _temp.grasem >_.js
 cat foreign.js _.js >${pytranspiler}.js
-../grasem/run.bash ${jstranspiler}.grasem >_.js
+
+m4 ${jstranspiler}.grasem >_temp.grasem
+../grasem/run.bash _temp.grasem >_.js
 cat foreign.js _.js >${jstranspiler}.js
-../grasem/run.bash ${shtranspiler}.grasem >_.js
+
+m4 ${shtranspiler}.grasem >_temp.grasem
+../grasem/run.bash _temp.grasem >_.js
 cat foreign.js _.js >${shtranspiler}.js
-../grasem/run.bash ${cltranspiler}.grasem >_.js
+
+m4 ${cltranspiler}.grasem >_temp.grasem
+../grasem/run.bash _temp.grasem >_.js
 cat foreign.js _.js >${cltranspiler}.js
 
 

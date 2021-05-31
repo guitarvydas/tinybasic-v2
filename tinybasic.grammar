@@ -1,0 +1,38 @@
+TINYBASIC {
+Basic = Statement+
+Statement =   "print" Expr_list -- print
+            | "if" Expression Relop Expression "then" Statement -- ifthen
+	    | "goto" Expression -- goto
+	    | "input" Variable_list -- input
+	    | "let" Variable "=" Expression --let
+	    | "gosub" Expression -- gosub
+	    | "return" -- return
+	    | "clear" -- clear
+	    | "list"  -- list
+	    | "run"   -- run
+	    | "end" -- end
+	    
+Expr_list = ( string | Expression ) CommaExpr*
+CommaExpr = "," (string | Expression) 
+Variable_list = Variable CommaVar*
+CommaVar = "," Variable
+Expression = ("+" | "-")? Term MoreTerm*
+MoreTerm = ("+" | "-") Term
+Term = Factor MoreFactor*
+MoreFactor = ("*" | "/") Factor
+Factor =   VariableRef -- var
+         | Number -- number
+	 | "(" Expression ")" -- paren
+Variable = "a" .. "z" 
+VariableRef = Variable
+Number = digit+ 
+Relop =   "<>" -- ne
+        | "<=" -- le
+	| "<"  -- lt
+	| ">=" -- ge
+	| ">"  -- gt
+	| "="  -- eq
+string = dq notDQ* dq
+dq = "\""
+notDQ = ~dq any
+}

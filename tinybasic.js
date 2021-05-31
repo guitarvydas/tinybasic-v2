@@ -26,16 +26,23 @@ Expression = ("+" | "-")? Term MoreTerm*
 MoreTerm = ("+" | "-") Term
 Term = Factor MoreFactor*
 MoreFactor = ("*" | "/") Factor
-Factor =   Variable -- var
+Factor =   VariableRef -- var
          | Number -- number
 	 | "(" Expression ")" -- paren
 Variable = "a" .. "z" 
+VariableRef = Variable
 Number = digit+ 
-Relop = "<>" | "<=" | "<" | "><" | ">=" | "=" 
+Relop =   "<>" -- ne
+        | "<=" -- le
+	| "<"  -- lt
+	| ">=" -- ge
+	| ">"  -- gt
+	| "="  -- eq
 string = dq notDQ* dq
 dq = "\\""
 notDQ = ~dq any
 }
+
 
 
 
