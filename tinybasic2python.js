@@ -149,7 +149,7 @@ Basic : function (_statements
 _ruleEnter ("Basic");
 
 var statements = _statements._glue ().join ('');
-var _result = `${statements}`;
+var _result = `def my_function ():\n${statements}\nmy_function ()`;
 _ruleExit ("Basic");
 return _result;
 },
@@ -157,7 +157,7 @@ Statement_print : function (_printkeyword,_exprList,) {
 _ruleEnter ("Statement_print");
 
 var printkeyword = _printkeyword._glue ();var exprList = _exprList._glue ();
-var _result = `print (${exprList})\n`;
+var _result = `\ \ print (${exprList})\n`;
 _ruleExit ("Statement_print");
 return _result;
 },
@@ -165,7 +165,7 @@ Statement_ifthen : function (_ifkeyword,_e1,_relop,_e2,_thenkeyword,_statement,)
 _ruleEnter ("Statement_ifthen");
 
 var ifkeyword = _ifkeyword._glue ();var e1 = _e1._glue ();var relop = _relop._glue ();var e2 = _e2._glue ();var thenkeyword = _thenkeyword._glue ();var statement = _statement._glue ();
-var _result = `if ${e1} ${relop} ${e2}:\n  ${statement}\n`;
+var _result = `\ \ if ${e1} ${relop} ${e2}:\n  ${statement}\n`;
 _ruleExit ("Statement_ifthen");
 return _result;
 },
@@ -177,19 +177,11 @@ var _result = `${gotokeyword} ${expression}\n`;
 _ruleExit ("Statement_goto");
 return _result;
 },
-Statement_input : function (_inputkeyword,_varList,) {
-_ruleEnter ("Statement_input");
-
-var inputkeyword = _inputkeyword._glue ();var varList = _varList._glue ();
-var _result = `${inputkeyword} ${varList}\n`;
-_ruleExit ("Statement_input");
-return _result;
-},
 Statement_let : function (_letkeyword,_v,_eqkeyword,_e,) {
 _ruleEnter ("Statement_let");
 
 var letkeyword = _letkeyword._glue ();var v = _v._glue ();var eqkeyword = _eqkeyword._glue ();var e = _e._glue ();
-var _result = `${v} ${eqkeyword} ${e}\n`;
+var _result = `\ \ ${v} ${eqkeyword} ${e}\n`;
 _ruleExit ("Statement_let");
 return _result;
 },
@@ -207,38 +199,6 @@ _ruleEnter ("Statement_return");
 var returnkeyword = _returnkeyword._glue ();
 var _result = `${returnkeyword}\n`;
 _ruleExit ("Statement_return");
-return _result;
-},
-Statement_clear : function (_clearkeyword,) {
-_ruleEnter ("Statement_clear");
-
-var clearkeyword = _clearkeyword._glue ();
-var _result = `${clearkeyword}\n`;
-_ruleExit ("Statement_clear");
-return _result;
-},
-Statement_list : function (_listkeyword,) {
-_ruleEnter ("Statement_list");
-
-var listkeyword = _listkeyword._glue ();
-var _result = `${listkeyword}\n`;
-_ruleExit ("Statement_list");
-return _result;
-},
-Statement_run : function (_runkeyword,) {
-_ruleEnter ("Statement_run");
-
-var runkeyword = _runkeyword._glue ();
-var _result = `${runkeyword}\n`;
-_ruleExit ("Statement_run");
-return _result;
-},
-Statement_end : function (_endkeyword,) {
-_ruleEnter ("Statement_end");
-
-var endkeyword = _endkeyword._glue ();
-var _result = `${endkeyword}\n`;
-_ruleExit ("Statement_end");
 return _result;
 },
 Expr_list : function (_stringOrExpression1,_commaExpr

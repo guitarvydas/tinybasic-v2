@@ -209,38 +209,6 @@ var _result = `${returnkeyword}\n`;
 _ruleExit ("Statement_return");
 return _result;
 },
-Statement_clear : function (_clearkeyword,) {
-_ruleEnter ("Statement_clear");
-
-var clearkeyword = _clearkeyword._glue ();
-var _result = `${clearkeyword}\n`;
-_ruleExit ("Statement_clear");
-return _result;
-},
-Statement_list : function (_listkeyword,) {
-_ruleEnter ("Statement_list");
-
-var listkeyword = _listkeyword._glue ();
-var _result = `${listkeyword}\n`;
-_ruleExit ("Statement_list");
-return _result;
-},
-Statement_run : function (_runkeyword,) {
-_ruleEnter ("Statement_run");
-
-var runkeyword = _runkeyword._glue ();
-var _result = `${runkeyword}\n`;
-_ruleExit ("Statement_run");
-return _result;
-},
-Statement_end : function (_endkeyword,) {
-_ruleEnter ("Statement_end");
-
-var endkeyword = _endkeyword._glue ();
-var _result = `${endkeyword}\n`;
-_ruleExit ("Statement_end");
-return _result;
-},
 Expr_list : function (_stringOrExpression1,_commaExpr
 ,) {
 _ruleEnter ("Expr_list");
